@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, CreditCard, PieChart, Target, Zap, LogOut, Wallet, Bell, History, Moon, Sun, Users, Check } from 'lucide-react';
+import { LayoutDashboard, CreditCard, PieChart, Target, Zap, LogOut, Wallet, Bell, History, Moon, Sun, Users, Check, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import Chatbot from './Chatbot';
@@ -13,6 +13,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [showNotifPanel, setShowNotifPanel] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const fetchNotifications = () => {
     if (user?.id) {
@@ -27,6 +28,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const interval = setInterval(fetchNotifications, 30000); // Poll every 30s
     return () => clearInterval(interval);
   }, [user]);
+
+  // Close sidebar on route change (mobile)
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location]);
 
   const markAsRead = async (id: number) => {
       if (!user?.id) return;
@@ -55,16 +61,35 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
+      
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 dark:bg-slate-950 text-white flex flex-col fixed h-full z-10 border-r border-slate-800">
-        <div className="p-6 flex items-center space-x-3">
-          <div className="bg-emerald-500 p-2 rounded-lg">
-            <Wallet className="w-6 h-6 text-white" />
+      <aside className={`
+        w-64 bg-slate-900 dark:bg-slate-950 text-white flex flex-col fixed h-full z-30 border-r border-slate-800 transition-transform duration-300 ease-in-out
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        md:translate-x-0
+      `}>
+        <div className="p-6 flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="bg-emerald-500 p-2 rounded-lg">
+              <Wallet className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-xl font-bold tracking-tight">CashBuddy</span>
           </div>
-          <span className="text-xl font-bold tracking-tight">CashBuddy</span>
+          {/* Mobile Close Button */}
+          <button onClick={() => setSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-white">
+            <X className="w-6 h-6" />
+          </button>
         </div>
 
-        <nav className="flex-1 px-4 space-y-2 mt-4">
+        <nav className="flex-1 px-4 space-y-2 mt-4 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
@@ -111,10 +136,16 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64 p-8 overflow-y-auto relative h-screen">
+      <main className="flex-1 md:ml-64 p-4 md:p-8 overflow-y-auto relative h-screen transition-all duration-300">
         {/* Header */}
-        <header className="flex justify-between items-center mb-8">
-           <div>
+        <header className="flex justify-between items-center mb-6 md:mb-8 sticky top-0 z-10 bg-slate-50 dark:bg-slate-900 py-2">
+           <div className="flex items-center">
+             <button 
+                onClick={() => setSidebarOpen(true)}
+                className="mr-3 md:hidden text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+             >
+                <Menu className="w-6 h-6" />
+             </button>
              <h1 className="text-xl font-semibold capitalize text-slate-900 dark:text-white">{location.pathname.replace('/', '') || 'Dashboard'}</h1>
            </div>
            <div className="flex items-center space-x-4 relative">
