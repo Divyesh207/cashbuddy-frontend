@@ -29,18 +29,18 @@ const Trends = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
         <div>
            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Spending Trends</h2>
            <p className="text-slate-500 dark:text-slate-400">Analyze your financial habits over time.</p>
         </div>
         
-        <div className="flex bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1">
+        <div className="flex bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1 w-full md:w-auto overflow-x-auto">
             {['week', 'month', 'year'].map((p) => (
                 <button
                     key={p}
                     onClick={() => setPeriod(p as any)}
-                    className={`px-4 py-2 text-sm font-medium rounded-md capitalize transition-colors ${
+                    className={`flex-1 md:flex-none px-3 py-1.5 md:px-4 md:py-2 text-sm font-medium rounded-md capitalize transition-colors whitespace-nowrap ${
                         period === p 
                         ? 'bg-indigo-600 text-white shadow-sm' 
                         : 'text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400'
@@ -52,13 +52,13 @@ const Trends = () => {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-colors">
+      <div className="bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-colors">
          <div className="flex items-center space-x-2 mb-6">
             <Filter className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             <h3 className="text-lg font-bold text-slate-900 dark:text-white capitalize">{period}ly Analysis</h3>
          </div>
 
-         <div className="h-80 w-full">
+         <div className="h-64 md:h-80 w-full">
             {loading ? (
                 <div className="h-full flex items-center justify-center text-slate-400">Loading data...</div>
             ) : data.length > 0 ? (

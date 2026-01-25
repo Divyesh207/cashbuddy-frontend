@@ -144,7 +144,7 @@ const Debts = () => {
   // --- RENDER HELPERS ---
 
   const renderGlobalStats = () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
         <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 p-6 rounded-2xl text-white shadow-lg shadow-emerald-200 dark:shadow-none">
             <div className="flex items-center space-x-2 mb-2 opacity-90">
                 <ArrowUpRight className="w-5 h-5" />
@@ -185,7 +185,7 @@ const Debts = () => {
                 className="flex items-center space-x-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-xl font-medium shadow-lg hover:opacity-90 transition-opacity"
             >
                 <Plus className="w-5 h-5" />
-                <span>Add Record</span>
+                <span className="hidden md:inline">Add Record</span>
             </button>
         </div>
 
@@ -265,23 +265,23 @@ const Debts = () => {
                     className="flex items-center space-x-2 bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 shadow-lg shadow-emerald-200 dark:shadow-none"
                 >
                     <Plus className="w-4 h-4" />
-                    <span>Add Record</span>
+                    <span className="hidden md:inline">Add Record</span>
                 </button>
             </div>
 
             {/* Friend Stats Cards */}
-            <div className="grid grid-cols-3 gap-4">
-                <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-xl border border-emerald-100 dark:border-emerald-800 text-center">
-                    <p className="text-xs text-emerald-600 dark:text-emerald-400 font-bold uppercase">They Owe You</p>
-                    <p className="text-xl font-bold text-emerald-700 dark:text-emerald-300">₹{friendStats?.totalLent || 0}</p>
+            <div className="grid grid-cols-3 gap-2 md:gap-4">
+                <div className="bg-emerald-50 dark:bg-emerald-900/20 p-2 md:p-4 rounded-xl border border-emerald-100 dark:border-emerald-800 text-center">
+                    <p className="text-[10px] md:text-xs text-emerald-600 dark:text-emerald-400 font-bold uppercase">They Owe You</p>
+                    <p className="text-sm md:text-xl font-bold text-emerald-700 dark:text-emerald-300">₹{friendStats?.totalLent || 0}</p>
                 </div>
-                <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-xl border border-red-100 dark:border-red-800 text-center">
-                    <p className="text-xs text-red-600 dark:text-red-400 font-bold uppercase">You Owe Them</p>
-                    <p className="text-xl font-bold text-red-700 dark:text-red-300">₹{friendStats?.totalBorrowed || 0}</p>
+                <div className="bg-red-50 dark:bg-red-900/20 p-2 md:p-4 rounded-xl border border-red-100 dark:border-red-800 text-center">
+                    <p className="text-[10px] md:text-xs text-red-600 dark:text-red-400 font-bold uppercase">You Owe Them</p>
+                    <p className="text-sm md:text-xl font-bold text-red-700 dark:text-red-300">₹{friendStats?.totalBorrowed || 0}</p>
                 </div>
-                <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase">Net Balance</p>
-                    <p className={`text-xl font-bold ${(friendStats?.net || 0) >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                <div className="bg-slate-100 dark:bg-slate-800 p-2 md:p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                    <p className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-bold uppercase">Net Balance</p>
+                    <p className={`text-sm md:text-xl font-bold ${(friendStats?.net || 0) >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
                          {(friendStats?.net || 0) >= 0 ? '+' : '-'}₹{Math.abs(friendStats?.net || 0)}
                     </p>
                 </div>
@@ -293,7 +293,7 @@ const Debts = () => {
                 {friendTransactions.length === 0 && <p className="text-slate-500">No transactions found.</p>}
                 
                 {friendTransactions.map(debt => (
-                    <div key={debt.id} className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col md:flex-row justify-between items-center">
+                    <div key={debt.id} className="bg-white dark:bg-slate-800 p-4 md:p-5 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col md:flex-row justify-between items-center">
                         <div className="flex items-center space-x-4 mb-4 md:mb-0 w-full md:w-auto">
                             <div className={`p-3 rounded-full flex-shrink-0 ${debt.type === 'FRIEND_OWES_ME' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'}`}>
                                 {debt.type === 'FRIEND_OWES_ME' ? <ArrowUpRight className="w-5 h-5" /> : <ArrowDownLeft className="w-5 h-5" />}

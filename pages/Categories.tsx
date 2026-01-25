@@ -28,15 +28,15 @@ const Categories = () => {
 
   const getIcon = (cat: string) => {
       switch(cat) {
-          case 'Food': return <Utensils className="w-6 h-6 text-orange-500" />;
-          case 'Travel': return <Plane className="w-6 h-6 text-blue-500" />;
-          case 'Shopping': return <ShoppingBag className="w-6 h-6 text-pink-500" />;
-          case 'Entertainment': return <Film className="w-6 h-6 text-purple-500" />;
-          case 'Utilities': return <Lightbulb className="w-6 h-6 text-yellow-500" />;
-          case 'Housing': return <Home className="w-6 h-6 text-indigo-500" />;
-          case 'Health': return <Heart className="w-6 h-6 text-red-500" />;
-          case 'Education': return <BookOpen className="w-6 h-6 text-emerald-500" />;
-          default: return <CircleDollarSign className="w-6 h-6 text-slate-500" />;
+          case 'Food': return <Utensils className="w-5 h-5 md:w-6 md:h-6 text-orange-500" />;
+          case 'Travel': return <Plane className="w-5 h-5 md:w-6 md:h-6 text-blue-500" />;
+          case 'Shopping': return <ShoppingBag className="w-5 h-5 md:w-6 md:h-6 text-pink-500" />;
+          case 'Entertainment': return <Film className="w-5 h-5 md:w-6 md:h-6 text-purple-500" />;
+          case 'Utilities': return <Lightbulb className="w-5 h-5 md:w-6 md:h-6 text-yellow-500" />;
+          case 'Housing': return <Home className="w-5 h-5 md:w-6 md:h-6 text-indigo-500" />;
+          case 'Health': return <Heart className="w-5 h-5 md:w-6 md:h-6 text-red-500" />;
+          case 'Education': return <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-emerald-500" />;
+          default: return <CircleDollarSign className="w-5 h-5 md:w-6 md:h-6 text-slate-500" />;
       }
   }
 
@@ -62,18 +62,18 @@ const Categories = () => {
         <p className="text-slate-500 dark:text-slate-400">Click a category to view detailed spending.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
          {data.map((item, idx) => (
              <div 
                key={idx} 
                onClick={() => setSelectedCategory(item.name)}
-               className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm cursor-pointer hover:shadow-md transition-all flex flex-col items-center justify-center text-center group"
+               className="bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm cursor-pointer hover:shadow-md transition-all flex flex-col items-center justify-center text-center group"
              >
-                <div className={`p-4 rounded-full mb-4 group-hover:scale-110 transition-transform ${getBg(item.name)}`}>
+                <div className={`p-3 md:p-4 rounded-full mb-3 md:mb-4 group-hover:scale-110 transition-transform ${getBg(item.name)}`}>
                     {getIcon(item.name)}
                 </div>
-                <h3 className="font-bold text-slate-900 dark:text-white">{item.name}</h3>
-                <p className="text-emerald-600 dark:text-emerald-400 font-bold text-lg mt-1">₹{item.value}</p>
+                <h3 className="font-bold text-sm md:text-base text-slate-900 dark:text-white truncate w-full">{item.name}</h3>
+                <p className="text-emerald-600 dark:text-emerald-400 font-bold text-base md:text-lg mt-1">₹{item.value}</p>
                 <p className="text-xs text-slate-400 mt-1">{item.count} txs</p>
              </div>
          ))}
@@ -83,8 +83,8 @@ const Categories = () => {
       {/* Detail Modal */}
       {selectedCategory && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-fade-in border border-slate-100 dark:border-slate-700">
-                <div className="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-700">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-fade-in border border-slate-100 dark:border-slate-700 max-h-[90vh] flex flex-col">
+                <div className="p-4 md:p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-700">
                     <div className="flex items-center space-x-3">
                         <div className={`p-2 rounded-full ${getBg(selectedCategory)}`}>{getIcon(selectedCategory)}</div>
                         <div>
@@ -94,7 +94,7 @@ const Categories = () => {
                     </div>
                     <button onClick={() => setSelectedCategory(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><X /></button>
                 </div>
-                <div className="max-h-[400px] overflow-y-auto p-2">
+                <div className="overflow-y-auto p-2 flex-1">
                     {catTransactions.map(tx => (
                         <div key={tx.id} className="flex justify-between items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg">
                             <div>

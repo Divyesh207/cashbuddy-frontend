@@ -77,18 +77,18 @@ const Savings = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 space-y-4 md:space-y-0">
         <div>
            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Savings Goals</h2>
            <p className="text-slate-500 dark:text-slate-400">Track your progress for big purchases.</p>
         </div>
-        <button onClick={() => setShowModal(true)} className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg shadow-sm transition-all">
+        <button onClick={() => setShowModal(true)} className="w-full md:w-auto flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg shadow-sm transition-all">
           <Plus className="w-4 h-4" />
           <span>New Goal</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {goals.length === 0 && (
            <div className="col-span-full text-center py-10 text-slate-400">
               No savings goals yet. Create one to get started!
@@ -100,7 +100,7 @@ const Savings = () => {
             <div key={goal.id} className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 relative group transition-colors">
               <button 
                 onClick={() => deleteGoal(goal.id)}
-                className="absolute top-4 right-4 text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute top-4 right-4 text-slate-300 hover:text-red-500 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity"
               >
                 <Trash2 size={16} />
               </button>
@@ -142,8 +142,8 @@ const Savings = () => {
 
       {/* Create Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl w-96 animate-fade-in shadow-2xl border border-slate-100 dark:border-slate-700">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl w-full max-w-sm animate-fade-in shadow-2xl border border-slate-100 dark:border-slate-700">
             <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">Create Savings Goal</h3>
             <div className="space-y-4">
                <input className="w-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 dark:text-white" placeholder="Goal Name (e.g., New Car)" onChange={e => setNewGoal({...newGoal, name: e.target.value})} />
@@ -157,8 +157,8 @@ const Savings = () => {
 
       {/* Deposit/Withdraw Modal */}
       {showDepositModal && selectedGoal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl w-96 animate-fade-in shadow-2xl border border-slate-100 dark:border-slate-700">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl w-full max-w-sm animate-fade-in shadow-2xl border border-slate-100 dark:border-slate-700">
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                         {isWithdraw ? 'Withdraw from' : 'Deposit to'} {selectedGoal.name}
@@ -196,7 +196,7 @@ const Savings = () => {
                 </div>
             </div>
         </div>
-      )}
+       )}
     </div>
   );
 };

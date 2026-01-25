@@ -78,7 +78,7 @@ const Budget = () => {
 
   if (isConfiguring) {
       return (
-         <div className="max-w-2xl mx-auto bg-white dark:bg-slate-800 p-10 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700 transition-colors">
+         <div className="max-w-2xl mx-auto bg-white dark:bg-slate-800 p-6 md:p-10 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700 transition-colors">
             <div className="text-center mb-8">
                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Setup Your Smart Budget</h2>
                <p className="text-slate-500 dark:text-slate-400">Let's calculate your daily spending limit and savings targets.</p>
@@ -139,12 +139,12 @@ const Budget = () => {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
         <div>
            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Smart Budget</h2>
            <p className="text-slate-500 dark:text-slate-400">Daily tracking and automated micro-savings.</p>
         </div>
-        <button onClick={() => setIsConfiguring(true)} className="flex items-center space-x-2 text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 bg-white dark:bg-slate-800 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-all">
+        <button onClick={() => setIsConfiguring(true)} className="flex items-center space-x-2 text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 bg-white dark:bg-slate-800 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-all w-full md:w-auto justify-center">
            <Settings2 size={16} />
            <span>Reconfigure Budget</span>
         </button>
@@ -185,7 +185,7 @@ const Budget = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Progress Bar */}
-        <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
+        <div className="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
            <h3 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center space-x-2">
              <Target className="w-5 h-5 text-slate-400" />
              <span>Today's Progress</span>
@@ -233,7 +233,7 @@ const Budget = () => {
         </div>
 
         {/* Sweep History */}
-        <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
+        <div className="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
            <h3 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center space-x-2">
              <RotateCcw className="w-5 h-5 text-slate-400" />
              <span>Sweep History (This Month)</span>
@@ -256,7 +256,7 @@ const Budget = () => {
       </div>
 
       {/* Category Estimates */}
-      <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
+      <div className="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
          <div className="flex justify-between items-center mb-6">
              <h3 className="font-bold text-slate-900 dark:text-white">Category Monthly Estimates</h3>
              <div title="AI Estimated">
