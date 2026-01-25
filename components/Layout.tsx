@@ -136,8 +136,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
       {/* Main Content */}
       <main className="flex-1 md:ml-64 p-4 md:p-8 overflow-y-auto relative h-screen transition-all duration-300 w-full">
-        {/* Header */}
-        <header className="flex justify-between items-center mb-6 sticky top-0 z-20 bg-slate-50 dark:bg-slate-900 py-2">
+        {/* Header - Removed 'sticky top-0 z-20' to make it scroll with page */}
+        <header className="flex justify-between items-center mb-6 bg-slate-50 dark:bg-slate-900 py-2">
            <div className="flex items-center gap-3">
                {/* Mobile Menu Button */}
                <button 
