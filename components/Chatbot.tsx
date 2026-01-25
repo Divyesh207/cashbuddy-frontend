@@ -293,7 +293,6 @@ const Chatbot: React.FC = () => {
           }
 
           // Send tool execution results back to the model.
-          // Correctly wrap toolResponses in the message object to avoid "ContentUnion is required" error.
           const finalResult = await chat.sendMessage({ message: toolResponses });
           
           if (finalResult.text) {
@@ -382,7 +381,7 @@ const Chatbot: React.FC = () => {
   if (!user) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className={`fixed z-50 transition-all duration-300 ${isOpen ? 'inset-0 md:inset-auto md:bottom-6 md:right-6' : 'bottom-6 right-6'}`}>
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -393,7 +392,7 @@ const Chatbot: React.FC = () => {
       )}
 
       {isOpen && (
-        <div className="bg-white dark:bg-slate-800 w-96 h-[550px] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden animate-fade-in">
+        <div className="bg-white dark:bg-slate-800 w-full h-full md:w-96 md:h-[550px] rounded-none md:rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden animate-fade-in">
           {/* Header */}
           <div className="bg-slate-900 dark:bg-slate-950 text-white p-4 flex justify-between items-center shadow-md">
              <div className="flex items-center space-x-2">
