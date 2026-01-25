@@ -181,6 +181,7 @@ const Debts = () => {
                 <p className="text-slate-500 dark:text-slate-400">Select a friend to view ledger.</p>
             </div>
             <button 
+                id="debts-add-btn"
                 onClick={openAddModal}
                 className="flex items-center space-x-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-xl font-medium shadow-lg hover:opacity-90 transition-opacity"
             >

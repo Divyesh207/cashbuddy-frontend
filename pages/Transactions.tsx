@@ -13,9 +13,7 @@ const Transactions = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showMagicModal, setShowMagicModal] = useState(false);
   
-  // State for delete confirmation
   const [deleteId, setDeleteId] = useState<number | null>(null);
-
   const [magicText, setMagicText] = useState('');
   const [isCustomCategory, setIsCustomCategory] = useState(false);
   
@@ -36,17 +34,14 @@ const Transactions = () => {
 
   useEffect(() => { fetchTx(); }, [search, user]);
 
-  // Derive available categories from existing transactions + defaults
   const availableCategories = useMemo(() => {
     const txCats = transactions.map(t => t.category);
     return Array.from(new Set([...DEFAULT_CATEGORIES, ...txCats])).sort();
   }, [transactions]);
 
-  // Reset custom category input when modal closes
   useEffect(() => {
     if (!showAddModal) {
         setIsCustomCategory(false);
-        // Reset to default if it was a custom one to avoid UI glitches, or keep it. 
         if (!DEFAULT_CATEGORIES.includes(newTx.category)) {
              setNewTx(prev => ({ ...prev, category: 'Other' }));
         }
@@ -56,14 +51,13 @@ const Transactions = () => {
   const confirmDelete = async () => {
     if (deleteId === null) return;
     await fetch(`${API_URL}/transactions/${deleteId}`, { method: 'DELETE' });
-    setDeleteId(null); // Close modal
+    setDeleteId(null);
     fetchTx();
   };
 
   const handleAdd = async () => {
     if (!user?.id) return;
 
-    // Validate amount to prevent server error
     const amountVal = parseFloat(newTx.amount);
     if (isNaN(amountVal) || amountVal <= 0) {
       alert("Please enter a valid amount");
@@ -102,7 +96,6 @@ const Transactions = () => {
   const handleMagicImport = async () => {
     if (!user?.id || !magicText.trim()) return;
     try {
-      // dry_run=true tells backend to just parse and return data
       const res = await fetch(`${API_URL}/transactions/import?user_id=${user.id}&dry_run=true`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -110,7 +103,6 @@ const Transactions = () => {
       });
       const data = await res.json();
       
-      // Pre-fill the modal with extracted data
       setNewTx({
         description: data.description || 'Imported Transaction',
         amount: data.amount ? data.amount.toString() : '',
@@ -121,14 +113,13 @@ const Transactions = () => {
 
       setMagicText('');
       setShowMagicModal(false);
-      setShowAddModal(true); // Open the main modal for review
+      setShowAddModal(true);
     } catch (e) {
       console.error("Import error", e);
       alert("Failed to parse SMS.");
     }
   };
 
-  // Helper to determine icon and color based on type and category
   const renderTxIcon = (tx: Transaction) => {
     if (tx.category === 'Savings') {
        return <PiggyBank className="w-5 h-5 text-indigo-500" />;
@@ -162,13 +153,18 @@ const Transactions = () => {
         </div>
         <div className="flex space-x-3 w-full md:w-auto">
           <button 
+            id="tx-magic-btn"
             onClick={() => setShowMagicModal(true)}
             className="flex-1 md:flex-none justify-center flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors shadow-sm"
           >
             <Sparkles className="w-4 h-4" />
             <span>Magic Import</span>
           </button>
-          <button onClick={() => setShowAddModal(true)} className="flex-1 md:flex-none justify-center flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-colors shadow-sm">
+          <button 
+             id="tx-add-btn"
+             onClick={() => setShowAddModal(true)} 
+             className="flex-1 md:flex-none justify-center flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-colors shadow-sm"
+          >
             <Plus className="w-4 h-4" />
             <span>Add New</span>
           </button>
@@ -232,7 +228,6 @@ const Transactions = () => {
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
       {deleteId !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl w-full max-w-sm shadow-2xl animate-fade-in border border-slate-100 dark:border-slate-700">
@@ -272,7 +267,7 @@ const Transactions = () => {
             <div className="grid grid-cols-2 gap-4 mb-4">
                <div>
                   <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">Type</label>
-                  <div className="flex rounded-lg border border-slate-200 dark:border-slate-600 p-1">
+                  <div id="tx-type-selector" className="flex rounded-lg border border-slate-200 dark:border-slate-600 p-1">
                      <button 
                        onClick={() => setNewTx({...newTx, type: 'Expense'})}
                        className={`flex-1 py-1.5 text-sm rounded-md font-medium transition-colors ${newTx.type === 'Expense' ? 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400' : 'text-slate-500 dark:text-slate-400'}`}
@@ -290,6 +285,7 @@ const Transactions = () => {
                <div>
                   <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">Amount</label>
                   <input 
+                    id="tx-amount"
                     className="w-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-900 dark:text-white"
                     placeholder="0.00" 
                     type="number"
@@ -302,6 +298,7 @@ const Transactions = () => {
             <div className="mb-4">
               <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">Description</label>
               <input 
+                id="tx-description"
                 className="w-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-900 dark:text-white"
                 placeholder="e.g., Starbucks Coffee" 
                 value={newTx.description} 
@@ -315,6 +312,7 @@ const Transactions = () => {
                   {isCustomCategory ? (
                     <div className="flex space-x-2">
                         <input 
+                            id="tx-category"
                             className="flex-1 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-900 dark:text-white"
                             placeholder="Enter new category"
                             value={newTx.category}
@@ -333,6 +331,7 @@ const Transactions = () => {
                     </div>
                   ) : (
                       <select 
+                        id="tx-category"
                         className="w-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-900 dark:text-white"
                         value={newTx.category}
                         onChange={e => {
@@ -364,7 +363,7 @@ const Transactions = () => {
 
             <div className="flex justify-end space-x-2">
                <button onClick={() => setShowAddModal(false)} className="px-4 py-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 font-medium">Cancel</button>
-               <button onClick={handleAdd} className="px-6 py-2 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700">Save Transaction</button>
+               <button id="tx-save-btn" onClick={handleAdd} className="px-6 py-2 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700">Save Transaction</button>
             </div>
           </div>
         </div>
@@ -382,7 +381,7 @@ const Transactions = () => {
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">Paste a bank SMS. AI will extract details for your review.</p>
             <textarea
-               className="w-full h-32 p-3 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none resize-none text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-700"
+               className="w-full h-33 p-3 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none resize-none text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-700"
                placeholder="e.g., 'Sent Rs. 350 to Uber via UPI on 22-10-2023'"
                value={magicText}
                onChange={(e) => setMagicText(e.target.value)}

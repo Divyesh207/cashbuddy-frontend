@@ -100,6 +100,10 @@ const Register = () => {
         body: JSON.stringify({ email: formData.email, otp }),
       });
       if (!res.ok) throw new Error('Invalid OTP');
+      
+      // Set onboarding flag for the new user
+      localStorage.setItem('need_onboarding', 'true');
+      
       alert('Registration Successful! Please login.');
       navigate('/login');
     } catch (err: any) {

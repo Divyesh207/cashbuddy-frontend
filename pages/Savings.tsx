@@ -10,7 +10,6 @@ const Savings = () => {
   const [showModal, setShowModal] = useState(false);
   const [newGoal, setNewGoal] = useState({ name: '', target_amount: '' });
 
-  // Deposit Modal State
   const [showDepositModal, setShowDepositModal] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState<SavingsGoal | null>(null);
   const [depositAmount, setDepositAmount] = useState('');
@@ -82,7 +81,7 @@ const Savings = () => {
            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Savings Goals</h2>
            <p className="text-slate-500 dark:text-slate-400">Track your progress for big purchases.</p>
         </div>
-        <button onClick={() => setShowModal(true)} className="w-full md:w-auto flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg shadow-sm transition-all">
+        <button id="savings-add-btn" onClick={() => setShowModal(true)} className="w-full md:w-auto flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg shadow-sm transition-all">
           <Plus className="w-4 h-4" />
           <span>New Goal</span>
         </button>
@@ -140,22 +139,31 @@ const Savings = () => {
         })}
       </div>
 
-      {/* Create Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl w-full max-w-sm animate-fade-in shadow-2xl border border-slate-100 dark:border-slate-700">
             <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">Create Savings Goal</h3>
             <div className="space-y-4">
-               <input className="w-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 dark:text-white" placeholder="Goal Name (e.g., New Car)" onChange={e => setNewGoal({...newGoal, name: e.target.value})} />
-               <input className="w-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 dark:text-white" type="number" placeholder="Target Amount" onChange={e => setNewGoal({...newGoal, target_amount: e.target.value})} />
-               <button onClick={handleCreate} className="w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700">Create Goal</button>
+               <input 
+                 id="savings-name"
+                 className="w-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 dark:text-white" 
+                 placeholder="Goal Name (e.g., New Car)" 
+                 onChange={e => setNewGoal({...newGoal, name: e.target.value})} 
+               />
+               <input 
+                 id="savings-target"
+                 className="w-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 p-2 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 dark:text-white" 
+                 type="number" 
+                 placeholder="Target Amount" 
+                 onChange={e => setNewGoal({...newGoal, target_amount: e.target.value})} 
+               />
+               <button id="savings-create-btn" onClick={handleCreate} className="w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700">Create Goal</button>
                <button onClick={() => setShowModal(false)} className="w-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600">Cancel</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Deposit/Withdraw Modal */}
       {showDepositModal && selectedGoal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl w-full max-w-sm animate-fade-in shadow-2xl border border-slate-100 dark:border-slate-700">

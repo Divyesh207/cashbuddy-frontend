@@ -384,6 +384,7 @@ const Chatbot: React.FC = () => {
     <div className={`fixed z-50 transition-all duration-300 ${isOpen ? 'inset-0 md:inset-auto md:bottom-6 md:right-6' : 'bottom-6 right-6'}`}>
       {!isOpen && (
         <button
+          id="chatbot-trigger"
           onClick={() => setIsOpen(true)}
           className="bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-700 text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex flex-col items-center"
         >

@@ -88,6 +88,7 @@ const Budget = () => {
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Monthly Income / Budget</label>
                     <input 
+                      id="budget-income"
                       type="number" 
                       className="w-full p-3 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-900 dark:text-white"
                       placeholder="e.g. 50000"
@@ -109,6 +110,7 @@ const Budget = () => {
                        </button>
                     </div>
                     <input 
+                      id="budget-savings"
                       type="number" 
                       className="w-full p-3 border border-indigo-200 dark:border-indigo-700 bg-white dark:bg-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none text-slate-900 dark:text-white"
                       placeholder="e.g. 10000"
@@ -119,7 +121,7 @@ const Budget = () => {
                     <p className="text-xs text-indigo-400 mt-2">Pay yourself first! This amount is removed from your daily limit.</p>
                 </div>
 
-                <button type="submit" className="w-full py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 dark:shadow-none">
+                <button id="budget-save-btn" type="submit" className="w-full py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 dark:shadow-none">
                     Start Budgeting
                 </button>
                 
@@ -131,10 +133,8 @@ const Budget = () => {
       )
   }
 
-  // Visualization View
   const usedPercent = data && data.daily_limit > 0 ? Math.min((data.used_today / data.daily_limit) * 100, 100) : 0;
   
-  // Check if a sweep happened today to show Undo button
   const hasSweptToday = data?.sweeps.some(s => new Date(s.date).toDateString() === new Date().toDateString());
 
   return (
@@ -144,7 +144,7 @@ const Budget = () => {
            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Smart Budget</h2>
            <p className="text-slate-500 dark:text-slate-400">Daily tracking and automated micro-savings.</p>
         </div>
-        <button onClick={() => setIsConfiguring(true)} className="flex items-center space-x-2 text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 bg-white dark:bg-slate-800 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-all w-full md:w-auto justify-center">
+        <button id="budget-config-btn" onClick={() => setIsConfiguring(true)} className="flex items-center space-x-2 text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 bg-white dark:bg-slate-800 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-all w-full md:w-auto justify-center">
            <Settings2 size={16} />
            <span>Reconfigure Budget</span>
         </button>
