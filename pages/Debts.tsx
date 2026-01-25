@@ -370,6 +370,7 @@ const Debts = () => {
                     </div>
 
                     <input 
+                        id="debt-friend-name"
                         className="w-full p-3 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 dark:text-white"
                         placeholder="Friend's Name"
                         value={newDebt.friend_name}
@@ -380,6 +381,7 @@ const Debts = () => {
                     <div className="relative">
                         <span className="absolute left-3 top-3 text-slate-400">₹</span>
                         <input 
+                            id="debt-amount"
                             type="number"
                             className="w-full pl-8 p-3 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 dark:text-white"
                             placeholder="Amount"
@@ -402,7 +404,7 @@ const Debts = () => {
                         onChange={e => setNewDebt({...newDebt, date: e.target.value})}
                     />
 
-                    <button onClick={handleCreate} className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-emerald-200 dark:shadow-none mt-2">
+                    <button id="debt-save-btn" onClick={handleCreate} className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-emerald-200 dark:shadow-none mt-2">
                         Save Record
                     </button>
                 </div>

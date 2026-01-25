@@ -18,7 +18,7 @@ const TOUR_STEPS: TourStep[] = [
     targetId: null,
     path: '/',
     title: "Welcome to CashBuddy! 🚀",
-    content: "I'll train you to become a finance master. We will configure your budget, add a transaction, and set a savings goal together.\n\nLet's do this step-by-step.",
+    content: "I'll train you to become a finance master. We will configure your budget, add a transaction, set a savings goal, and track debts together.\n\nLet's do this step-by-step.",
     actionHint: "Click 'Start Tour' to begin."
   },
   {
@@ -152,6 +152,40 @@ const TOUR_STEPS: TourStep[] = [
     path: '/savings',
     title: "Create Goal",
     content: "Almost done! \n\n👉 **Click 'Create Goal'**.",
+    position: 'top',
+    interaction: 'click'
+  },
+
+  // --- FRIEND LEDGER / DEBTS ---
+  {
+    targetId: 'debts-add-btn',
+    path: '/debts',
+    title: "Step 4: Friend Ledger",
+    content: "Track money lent to or borrowed from friends. Don't let IOUs slip away! \n\n👉 **Click 'Add Record'**.",
+    position: 'left',
+    interaction: 'click'
+  },
+  {
+    targetId: 'debt-friend-name',
+    path: '/debts',
+    title: "Friend's Name",
+    content: "Who is this record for? (e.g. 'John Doe').",
+    position: 'top',
+    actionHint: "Type name, then Next."
+  },
+  {
+    targetId: 'debt-amount',
+    path: '/debts',
+    title: "Amount",
+    content: "How much is involved? (e.g. 500).",
+    position: 'top',
+    actionHint: "Type amount, then Next."
+  },
+  {
+    targetId: 'debt-save-btn',
+    path: '/debts',
+    title: "Save Record",
+    content: "Add this to your ledger. \n\n👉 **Click 'Save Record'**.",
     position: 'top',
     interaction: 'click'
   },
