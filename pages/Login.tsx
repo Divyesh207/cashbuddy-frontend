@@ -123,7 +123,7 @@ const Login = () => {
       }
 
       login(data.access_token, { ...data.user });
-      navigate('/');
+      navigate('/dashboard');
     } catch (err: any) {
       setError(err.message || "Invalid OTP");
     } finally {

@@ -36,8 +36,8 @@ const MagicImportModal: React.FC<MagicImportModalProps> = ({ onClose, onSuccess 
     };
 
     return (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[60] p-4 animate-fade-in">
-            <div id="magic-modal-content" className="bg-white dark:bg-slate-900 p-8 rounded-3xl w-full max-w-lg shadow-2xl border border-white/20 dark:border-slate-700 transform transition-all scale-100">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-[60] p-0 sm:p-4 animate-fade-in">
+            <div id="magic-modal-content" className="bg-white dark:bg-slate-900 p-8 rounded-t-3xl rounded-b-none sm:rounded-3xl w-full max-w-lg shadow-2xl border-t border-white/20 dark:border-slate-700 sm:border transform transition-all scale-100 animate-slide-up">
                 <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl">

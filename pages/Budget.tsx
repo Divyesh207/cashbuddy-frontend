@@ -103,13 +103,13 @@ const Budget = () => {
 
       return (
          <div className="fixed inset-0 bg-slate-100 dark:bg-slate-950 z-50 flex flex-col items-center justify-center p-4 animate-fade-in">
-            <div className="max-w-md mx-auto bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 transition-all animate-fade-in mt-10">
-               <div className="text-center mb-8">
+            <div className="max-w-md mx-auto bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 transition-all animate-fade-in mt-4 md:mt-10">
+               <div className="text-center mb-6 md:mb-8">
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Budget Setup</h2>
                   <p className="text-sm text-slate-500 dark:text-slate-400">Simple inputs, smart results.</p>
                </div>
 
-               <form onSubmit={handleConfigure} className="space-y-6 progress-step-active">
+               <form onSubmit={handleConfigure} className="space-y-4 md:space-y-6 progress-step-active">
 
                   {/* Goal */}
                   <div>

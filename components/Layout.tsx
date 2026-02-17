@@ -69,7 +69,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   };
 
   const navItems = [
-    { path: '/', label: 'Overview', icon: LayoutDashboard },
+    { path: '/dashboard', label: 'Overview', icon: LayoutDashboard },
     { path: '/transactions', label: 'Transactions', icon: CreditCard },
     { path: '/debts', label: 'Friend Ledger', icon: Users },
     { path: '/history', label: 'History', icon: History },
@@ -106,14 +106,14 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         ${isSidebarOpen ? 'translate-x-0 opacity-100' : '-translate-x-[110%] opacity-0'} md:translate-x-0 md:opacity-100 md:relative md:inset-0 md:h-auto md:m-4
       `}>
         <div className="p-8 flex items-center justify-between">
-          <div className="flex items-center space-x-3 group">
+          <Link to="/dashboard" className="flex items-center space-x-3 group">
             <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 p-2.5 rounded-xl shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-all duration-300 group-hover:scale-105">
               <Wallet className="w-6 h-6 text-white" />
             </div>
             <div>
               <span className="text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">CashBuddy</span>
             </div>
-          </div>
+          </Link>
           {/* Close button for mobile inside sidebar */}
           <button onClick={() => setIsSidebarOpen(false)} className="md:hidden p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
             <X className="w-5 h-5 text-slate-500" />
@@ -194,21 +194,21 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 relative h-screen overflow-hidden flex flex-col">
+      <main className="flex-1 relative h-screen overflow-y-auto overflow-x-hidden flex flex-col pb-24 md:pb-0 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
         {/* Glass Header */}
         <header className="h-20 px-6 md:px-10 flex items-center justify-between z-30 sticky top-0 transition-all duration-300">
           <div className="flex items-center gap-4">
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Hidden as we have Bottom Nav */}
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="p-2 -ml-2 text-slate-600 dark:text-slate-300 md:hidden hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-xl"
+              className="hidden p-2 -ml-2 text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-xl"
             >
               <Menu className="w-6 h-6" />
             </button>
 
             <div>
               <h1 className="text-2xl font-display font-bold text-slate-900 dark:text-white capitalize">
-                {location.pathname === '/' ? 'Dashboard' : location.pathname.replace('/', '')}
+                {location.pathname === '/dashboard' || location.pathname === '/' ? 'Dashboard' : location.pathname.replace('/', '')}
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 hidden md:block">
                 Manage your finances with ease
@@ -309,7 +309,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         {/* Quick Add FAB */}
         <button
           onClick={() => setShowQuickAdd(true)}
-          className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-40 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white p-4 rounded-full shadow-lg hover:shadow-emerald-500/50 hover:scale-110 active:scale-95 transition-all duration-300 group"
+          className="hidden md:block fixed bottom-6 right-6 md:bottom-10 md:right-10 z-40 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white p-4 rounded-full shadow-lg hover:shadow-emerald-500/50 hover:scale-110 active:scale-95 transition-all duration-300 group"
         >
           <Plus className="w-8 h-8 group-hover:rotate-90 transition-transform duration-300" />
           <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
@@ -328,6 +328,44 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           />
         )}
       </main>
+      {/* Bottom Navigation Bar for Mobile */}
+      <div className={`fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 p-2 md:hidden safe-area-bottom pb-safe transition-all duration-300 ${isSidebarOpen ? 'translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
+        <div className="flex justify-around items-center">
+          <Link to="/dashboard" className={`flex flex-col items-center p-2 rounded-xl transition-colors ${location.pathname === '/dashboard' ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`}>
+            <LayoutDashboard size={24} strokeWidth={location.pathname === '/dashboard' ? 2.5 : 2} />
+            <span className="text-[10px] font-medium mt-1">Overview</span>
+          </Link>
+
+          <Link to="/transactions" className={`flex flex-col items-center p-2 rounded-xl transition-colors ${location.pathname === '/transactions' ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`}>
+            <CreditCard size={24} strokeWidth={location.pathname === '/transactions' ? 2.5 : 2} />
+            <span className="text-[10px] font-medium mt-1">Txns</span>
+          </Link>
+
+          <button
+            onClick={() => setShowQuickAdd(true)}
+            className="flex flex-col items-center justify-center -mt-8 relative group"
+          >
+            <div className="absolute inset-0 rounded-full group-hover:bg-emerald-500/10 transition-all duration-500"></div>
+            <div className="w-14 h-14 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full shadow-lg shadow-emerald-500/30 flex items-center justify-center text-white transform active:scale-95 transition-transform relative z-10 border-4 border-slate-50 dark:border-slate-950">
+              <Plus size={28} strokeWidth={3} />
+            </div>
+            <span className="text-[10px] font-medium mt-1 text-emerald-500 font-bold">Add</span>
+          </button>
+
+          <Link to="/budget" className={`flex flex-col items-center p-2 rounded-xl transition-colors ${location.pathname === '/budget' ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`}>
+            <Zap size={24} strokeWidth={location.pathname === '/budget' ? 2.5 : 2} />
+            <span className="text-[10px] font-medium mt-1">Budget</span>
+          </Link>
+
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className={`flex flex-col items-center p-2 rounded-xl transition-colors ${isSidebarOpen ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`}
+          >
+            <Menu size={24} strokeWidth={2} />
+            <span className="text-[10px] font-medium mt-1">Menu</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

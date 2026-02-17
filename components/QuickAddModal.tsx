@@ -53,9 +53,9 @@ const QuickAddModal: React.FC<QuickAddModalProps> = ({ onClose, onSuccess }) => 
     };
 
     return (
-        <div className="fixed inset-0 z-[60] flex items-end md:items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fade-in" onClick={onClose}>
+        <div className="fixed inset-0 z-[60] flex items-end md:items-center justify-center p-0 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fade-in" onClick={onClose}>
             <div
-                className="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden animate-slide-up transform transition-all border border-white/20 dark:border-slate-700"
+                className="w-full sm:max-w-md bg-white dark:bg-slate-900 rounded-t-3xl rounded-b-none sm:rounded-3xl shadow-2xl overflow-hidden animate-slide-up transform transition-all border-t border-white/20 dark:border-slate-700 sm:border"
                 onClick={e => e.stopPropagation()}
             >
                 {/* Header */}

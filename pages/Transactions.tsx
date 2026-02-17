@@ -24,6 +24,7 @@ const Transactions = () => {
 
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [isCustomCategory, setIsCustomCategory] = useState(false);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   const [newTx, setNewTx] = useState({
     description: '',
@@ -252,8 +253,42 @@ const Transactions = () => {
           </div>
         </div>
 
-        {/* Transactions Table */}
-        <div className="overflow-x-auto relative z-10">
+        {/* Mobile Card List View */}
+        <div className="block md:hidden pb-4 px-4 space-y-3 bg-slate-50/50 dark:bg-slate-900/50">
+          {filteredTransactions.length === 0 ? (
+            <div className="text-center py-10 text-slate-500 text-sm">No transactions found.</div>
+          ) : (
+            filteredTransactions.map(tx => (
+              <div key={tx.id} className="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center justify-between active:scale-[0.98] transition-transform">
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-700/50">
+                    {renderTxIcon(tx)}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 dark:text-white text-base max-w-[150px] truncate leading-tight">{tx.description}</h4>
+                    <div className="flex items-center text-xs text-slate-400 mt-1 space-x-2">
+                      <span>{new Date(tx.date).toLocaleDateString()}</span>
+                      <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                      <span>{tx.category}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end">
+                  {renderTxAmount(tx)}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setDeleteId(tx.id); }}
+                    className="mt-2 text-slate-400 p-1"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Desktop Transactions Table */}
+        <div className="hidden md:block overflow-x-auto relative z-10">
           <table className="w-full text-slate-900 dark:text-slate-200">
             <thead className="bg-slate-50/50 dark:bg-slate-800/50 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider backdrop-blur-sm">
               <tr>

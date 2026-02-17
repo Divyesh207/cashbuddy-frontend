@@ -15,6 +15,7 @@ import History from './pages/History';
 import Trends from './pages/Trends';
 import Debts from './pages/Debts';
 import Help from './pages/Help';
+import LandingPage from './pages/LandingPage';
 import Layout from './components/Layout';
 
 // Refactored ProtectedRoute to use Outlet pattern instead of children prop
@@ -36,19 +37,20 @@ const App = () => {
         <TourProvider>
           <Router>
             <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
 
-              {/* Using Layout Route pattern for protected pages */}
+              {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/debts" element={<Debts />} />
                 <Route path="/trends" element={<Trends />} />
                 <Route path="/history" element={<History />} />
                 <Route path="/categories" element={<Categories />} />
-                <Route path="/savings" element={<Savings />} />
                 <Route path="/savings" element={<Savings />} />
                 <Route path="/budget" element={<Budget />} />
                 <Route path="/help" element={<Help />} />

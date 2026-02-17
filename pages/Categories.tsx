@@ -71,12 +71,12 @@ const Categories = () => {
         <p className="text-slate-500 dark:text-slate-400">Click a category to view detailed spending.</p>
       </div>
 
-      <div id="category-list" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
+      <div id="category-list" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
         {data.map((item, idx) => (
           <div
             key={idx}
             onClick={() => setSelectedCategory(item.name)}
-            className="bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm cursor-pointer hover:shadow-md transition-all flex flex-col items-center justify-center text-center group"
+            className="bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm cursor-pointer hover:shadow-md transition-all flex flex-col items-center justify-center text-center group"
           >
             <div className={`p-3 md:p-4 rounded-full mb-3 md:mb-4 group-hover:scale-110 transition-transform ${getBg(item.name)}`}>
               {getIcon(item.name)}

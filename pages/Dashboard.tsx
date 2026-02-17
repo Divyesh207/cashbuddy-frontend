@@ -8,11 +8,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import MagicImportModal from '../components/MagicImportModal';
 
 const QUOTES = [
-  "Do not save what is left after spending, but spend what is left after saving. – Warren Buffett",
-  "A budget is telling your money where to go instead of wondering where it went. – Dave Ramsey",
-  "Beware of little expenses. A small leak will sink a great ship. – Benjamin Franklin",
-  "The art is not in making money, but in keeping it. – Proverb",
-  "Financial freedom is available to those who learn about it and work for it. – Robert Kiyosaki"
+  "Do not save what is left after spending, but spend what is left after saving. – Ishwar Battewar",
+  "A budget is telling your money where to go instead of wondering where it went. – Ishwar Battewar",
+  "Beware of little expenses. A small leak will sink a great ship. – Ishwar Battewar",
+  "The art is not in making money, but in keeping it. – Ishwar Battewar",
+  "Financial freedom is available to those who learn about it and work for it. – Ishwar Battewar"
 ];
 
 const Dashboard = () => {
@@ -53,26 +53,25 @@ const Dashboard = () => {
     <div className="space-y-8 pb-10">
 
       {/* Dynamic Greeting & Quote */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-900 shadow-2xl p-8 text-white group hover:shadow-emerald-900/20 transition-all duration-500">
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition-all duration-700"></div>
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-900 shadow-xl md:shadow-2xl p-4 md:p-8 text-white group hover:shadow-emerald-900/20 transition-all duration-500">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition-all duration-700 hidden md:block"></div>
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-3">
+            <div className="hidden md:flex items-center gap-3 mb-3">
               <div className="p-2 bg-white/10 rounded-xl backdrop-blur-md">
                 <Lightbulb className="text-yellow-300 w-5 h-5" />
               </div>
               <span className="text-emerald-300 font-semibold tracking-wide text-sm uppercase">Daily Wisdom</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-display font-medium leading-relaxed">"{quote}"</h2>
+            <h2 className="text-lg md:text-3xl font-display font-medium leading-relaxed">"{quote}"</h2>
           </div>
-          <div className="flex flex-col items-end text-right">
-            <p className="text-slate-400 text-sm mb-1">Welcome back,</p>
+          <div className="flex flex-col items-end text-right self-end md:self-auto">
             <div className="flex items-center gap-3">
-              <div className="text-right">
+              <div className="text-right hidden md:block">
                 <p className="font-bold text-2xl">{user?.full_name}</p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 p-[2px]">
-                <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg font-bold">
+              <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 p-[2px]">
+                <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-sm md:text-lg font-bold">
                   {user?.full_name.charAt(0)}
                 </div>
               </div>
@@ -82,9 +81,9 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Cards (Moved to Top) */}
-      <div id="dashboard-stats" className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div id="dashboard-stats" className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 gap-4 md:gap-6 pb-4 md:pb-0 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
         {/* Income Card */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+        <div className="min-w-[85vw] md:min-w-0 snap-center bg-white dark:bg-slate-900 p-5 md:p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
           <div className="flex justify-between items-start mb-4">
             <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl group-hover:scale-110 transition-transform duration-300">
               <TrendingUp className="w-6 h-6 text-emerald-500" />
@@ -98,7 +97,7 @@ const Dashboard = () => {
         </div>
 
         {/* Expenses Card */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+        <div className="min-w-[85vw] md:min-w-0 snap-center bg-white dark:bg-slate-900 p-5 md:p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
           <div className="flex justify-between items-start mb-4">
             <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-2xl group-hover:scale-110 transition-transform duration-300">
               <TrendingDown className="w-6 h-6 text-red-500" />
@@ -112,7 +111,7 @@ const Dashboard = () => {
         </div>
 
         {/* Balance Card */}
-        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-6 rounded-3xl shadow-xl shadow-blue-500/20 text-white hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+        <div className="min-w-[85vw] md:min-w-0 snap-center bg-gradient-to-br from-blue-600 to-indigo-700 p-5 md:p-6 rounded-3xl shadow-xl shadow-blue-500/20 text-white hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
           <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all duration-500"></div>
           <div className="flex justify-between items-start mb-4 relative z-10">
             <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
@@ -128,7 +127,7 @@ const Dashboard = () => {
       {/* Proactive Insight & Magic Import */}
       <div className="grid grid-cols-1 gap-6">
         {/* Magic Import CTA */}
-        <div className="bg-gradient-to-br from-indigo-600 to-purple-700 p-6 rounded-3xl shadow-lg shadow-indigo-500/20 text-white relative overflow-hidden group hover:shadow-indigo-500/30 transition-all">
+        <div className="bg-gradient-to-br from-indigo-600 to-purple-700 p-4 md:p-6 rounded-3xl shadow-lg shadow-indigo-500/20 text-white relative overflow-hidden group hover:shadow-indigo-500/30 transition-all">
           <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white/10 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700"></div>
           <div className="relative z-10 h-full flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-start gap-4">
@@ -184,7 +183,7 @@ const Dashboard = () => {
               <ChevronRight size={20} className="text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400" />
             </div>
           </div>
-          <div className="h-72 w-full">
+          <div className="h-56 md:h-72 w-full">
             {trendData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={trendData}>
@@ -239,9 +238,9 @@ const Dashboard = () => {
             <Link to="/categories" className="text-xs font-semibold px-2 py-1 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">View Details</Link>
           </div>
 
-          <div className="flex-1 flex justify-center items-center relative">
+          <div className="flex-1 flex justify-center items-center relative h-64 md:h-auto min-h-[250px]">
             {categoryData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={250}>
+              <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={categoryData}
@@ -296,11 +295,11 @@ const Dashboard = () => {
                 <p>No goals set yet. Start saving today!</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-4 md:pb-0 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
                 {goals.slice(0, 3).map(g => {
                   const pct = Math.min((g.current_amount / g.target_amount) * 100, 100);
                   return (
-                    <div key={g.id} className="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-700/50 flex items-center gap-4">
+                    <div key={g.id} className="min-w-[85vw] md:min-w-0 snap-center bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-700/50 flex items-center gap-4">
                       <div className="relative w-16 h-16 shrink-0">
                         <svg className="w-full h-full transform -rotate-90">
                           <circle cx="50%" cy="50%" r="40%" stroke="#e2e8f0" className="dark:stroke-slate-700" strokeWidth="6" fill="none" />
